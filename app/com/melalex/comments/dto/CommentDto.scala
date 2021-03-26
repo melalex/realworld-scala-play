@@ -1,6 +1,6 @@
 package com.melalex.comments.dto
 
-import profiles.dto.ProfileDto
+import com.melalex.profiles.dto.ProfileDto
 
 import java.time.ZonedDateTime
 
