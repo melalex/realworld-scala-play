@@ -1,11 +1,16 @@
 package com.melalex.users.controller
 
-import play.api.mvc.{BaseController, ControllerComponents}
+import com.melalex.commons.util.AbstractRealWorldController
+import com.melalex.users.dto.{UserAuthenticationDto, UserRegistrationDto, UserUpdateDto}
+import play.api.mvc.{Action, AnyContent, ControllerComponents}
 
-import javax.inject.{Inject, Singleton}
+class UserController(val controllerComponents: ControllerComponents) extends AbstractRealWorldController {
 
-@Singleton
-class UserController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+  def authenticateUser(authentication: UserAuthenticationDto): Action[AnyContent] = ???
 
-  def login()
+  def registerUser(registration: UserRegistrationDto): Action[AnyContent] = ???
+
+  def getCurrentUser: Action[AnyContent] = ???
+
+  def updateUser(userUpdateDto: UserUpdateDto): Action[AnyContent] = ???
 }
