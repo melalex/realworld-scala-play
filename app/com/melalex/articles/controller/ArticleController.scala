@@ -1,11 +1,6 @@
 package com.melalex.articles.controller
 
 import com.melalex.commons.util.AbstractRealWorldController
-import play.api.mvc.{BaseController, ControllerComponents}
+import play.api.mvc.ControllerComponents
 
-import javax.inject.{Inject, Singleton}
-
-class ArticleController(val controllerComponents: ControllerComponents) extends AbstractRealWorldController {
-
-  def createArticle() = ???
-}
+class ArticleController(controllerComponents: ControllerComponents) extends AbstractRealWorldController(controllerComponents) {}

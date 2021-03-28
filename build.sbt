@@ -32,6 +32,8 @@ libraryDependencies ++= {
   val scalaMockVersion     = "5.0.0"
 
   List(
+    // Play
+    ws,
     // DI
     "com.softwaremill.macwire" %% "macros" % macWireVersion,
     // Test
