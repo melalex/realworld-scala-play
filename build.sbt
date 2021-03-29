@@ -30,12 +30,16 @@ libraryDependencies ++= {
   val macWireVersion       = "2.3.7"
   val scalaTestPlayVersion = "5.0.0"
   val scalaMockVersion     = "5.0.0"
+  val slickVersion         = "5.0.0"
 
   List(
     // Play
     ws,
     // DI
     "com.softwaremill.macwire" %% "macros" % macWireVersion,
+    // DB
+    "com.typesafe.play" %% "play-slick"            % slickVersion,
+    "com.typesafe.play" %% "play-slick-evolutions" % slickVersion,
     // Test
     "org.scalamock"          %% "scalamock"          % scalaMockVersion     % Test,
     "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayVersion % Test

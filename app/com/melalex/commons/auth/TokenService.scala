@@ -2,7 +2,7 @@ package com.melalex.commons.auth
 
 import scala.util.Try
 
-trait AuthService {
+trait TokenService {
 
   def validateToken(token: String): Try[UserPrincipal]
 

@@ -1,10 +1,10 @@
 package com.melalex.commons.auth.impl
 
-import com.melalex.commons.auth.{AuthService, UserPrincipal}
+import com.melalex.commons.auth.{TokenService, UserPrincipal}
 
 import scala.util.Try
 
-class JwtAuthService extends AuthService {
+class JwtTokenService extends TokenService {
 
   override def validateToken(token: String): Try[UserPrincipal] = ???
 

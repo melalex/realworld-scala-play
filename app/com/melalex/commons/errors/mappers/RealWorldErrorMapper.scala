@@ -2,17 +2,15 @@ package com.melalex.commons.errors.mappers
 
 import com.melalex.commons.errors.dto.RealWorldErrorDto
 import com.melalex.commons.errors.model.RealWorldError
-import com.melalex.commons.i18n.I18nService
-
-import java.util.Locale
+import play.api.i18n.{Lang, MessagesApi}
 
 class RealWorldErrorMapper(
-    val i18nService: I18nService
+    messagesApi: MessagesApi
 ) {
 
-  def map(source: Seq[RealWorldError], locales: Seq[Locale]): RealWorldErrorDto = {
+  def map(source: Seq[RealWorldError], languages: Seq[Lang]): RealWorldErrorDto = {
     val errors = source
-      .map(it => i18nService.getMessage(locales, it.messageCode, it.arguments))
+      .map(it => messagesApi.preferred(languages)(it.messageCode, it.arguments))
 
     RealWorldErrorDto(errors)
   }
