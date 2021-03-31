@@ -31,6 +31,7 @@ libraryDependencies ++= {
   val scalaTestPlayVersion = "5.0.0"
   val scalaMockVersion     = "5.0.0"
   val slickVersion         = "5.0.0"
+  val automapperVersion    = "0.7.0"
 
   List(
     // Play
@@ -40,6 +41,8 @@ libraryDependencies ++= {
     // DB
     "com.typesafe.play" %% "play-slick"            % slickVersion,
     "com.typesafe.play" %% "play-slick-evolutions" % slickVersion,
+    // Other
+    "io.bfil" %% "automapper" % automapperVersion,
     // Test
     "org.scalamock"          %% "scalamock"          % scalaMockVersion     % Test,
     "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayVersion % Test

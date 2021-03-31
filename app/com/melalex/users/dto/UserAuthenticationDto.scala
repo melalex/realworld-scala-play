@@ -11,7 +11,7 @@ object UserAuthenticationDto {
   implicit val reads: Reads[UserAuthenticationDto] = Json.reads[UserAuthenticationDto]
 
   case class Body(
-                   email: String,
-                   password: String
+      email: String,
+      password: String
   )
 }
