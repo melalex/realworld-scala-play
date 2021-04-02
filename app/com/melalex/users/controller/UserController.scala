@@ -1,9 +1,10 @@
 package com.melalex.users.controller
 
 import com.melalex.commons.auth.AuthenticationAction
+import com.melalex.commons.controller.AbstractRealWorldController
 import com.melalex.commons.db.WorkExecutor
-import com.melalex.commons.util.AbstractRealWorldController
 import com.melalex.users.dto._
+import com.melalex.users.mapper.UserConversions
 import com.melalex.users.service.UserService
 import play.api.libs.json._
 import play.api.mvc._
@@ -23,18 +24,18 @@ class UserController(
 
     workExecutor
       .execute(unitOfWork)
-      .map(UserDto.fromUserAndToken)
+      .map(UserConversions.toUserDto)
       .map(SingleUserDto(_))
       .map(Json.toJson(_))
       .map(Ok(_))
   }
 
   def registerUser: Action[UserRegistrationDto] = Action.async(jsonToDto[UserRegistrationDto]) { request =>
-    val unitOfWork = userService.createUser()
+    val unitOfWork = userService.createUser(UserConversions.toSecurityUserDetails(request.body))
 
     workExecutor
       .executeInTransaction(unitOfWork)
-      .map(UserDto.fromUserAndToken)
+      .map(UserConversions.toUserDto)
       .map(SingleUserDto(_))
       .map(Json.toJson(_))
       .map(Ok(_))

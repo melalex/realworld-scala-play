@@ -9,14 +9,3 @@ case class UserDto(
     bio: Option[String],
     image: Option[String]
 )
-
-object UserDto {
-
-  def fromUserAndToken(source: UserAndToken): UserDto = UserDto(
-    email = source.user.email,
-    token = source.token,
-    username = source.user.username,
-    bio = source.user.bio,
-    image = source.user.image
-  )
-}

@@ -1,4 +1,4 @@
-package com.melalex.commons.util
+package com.melalex.commons.controller
 
 import play.api.libs.json.{JsError, Reads}
 import play.api.mvc.{AbstractController, BodyParser, ControllerComponents}

@@ -1,6 +1,6 @@
 package com.melalex.users.dto
 
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.{Json, Writes}
 
 case class SingleUserDto(
     user: UserDto

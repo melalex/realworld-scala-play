@@ -1,6 +1,6 @@
 package com.melalex.users.model
 
-import java.time.ZonedDateTime
+import java.time.Instant
 
 case class User(
     id: Long,
@@ -9,7 +9,7 @@ case class User(
     password: String,
     bio: Option[String],
     image: Option[String],
-    createdAt: ZonedDateTime,
-    updatedAt: ZonedDateTime,
+    createdAt: Instant,
+    updatedAt: Instant,
     version: Int
 )

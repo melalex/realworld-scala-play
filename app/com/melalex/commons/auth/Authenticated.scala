@@ -12,16 +12,16 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 
 class Authenticated[A](
-                        tokenService: TokenService,
-                        errorMapper: RealWorldErrorMapper,
-                        action: Action[A]
+    tokenService: TokenService,
+    errorMapper: RealWorldErrorMapper,
+    action: Action[A]
 ) extends Action[A] {
 
   override def apply(request: Request[A]): Future[Result] =
     request.headers.get(HeaderNames.AUTHORIZATION) match {
       case Some(token) =>
         tokenService.validateToken(token) match {
-          case Success(principal)                  => action(AuthenticatedRequest(principal, request))
+          case Success(principal)                  => action(AuthenticatedUserRequest(principal, request))
           case Failure(RealWorldException(errors)) => successful(Results.Unauthorized(convertToResponse(request, errors)))
           case _                                   => successful(Results.Unauthorized)
         }
