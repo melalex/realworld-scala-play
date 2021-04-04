@@ -1,6 +1,6 @@
 package com.melalex.users.model
 
-case class SecurityUserDetails(
+case class NewUser(
     username: String,
     email: String,
     password: String

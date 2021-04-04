@@ -8,7 +8,7 @@ case class UserAuthenticationDto(
 
 object UserAuthenticationDto {
 
-  implicit val reads: Reads[UserAuthenticationDto] = Json.reads[UserAuthenticationDto]
+  implicit val Reads: Reads[UserAuthenticationDto] = Json.reads[UserAuthenticationDto]
 
   case class Body(
       email: String,

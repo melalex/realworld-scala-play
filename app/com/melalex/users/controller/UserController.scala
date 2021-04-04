@@ -5,11 +5,10 @@ import com.melalex.commons.controller.AbstractRealWorldController
 import com.melalex.commons.db.WorkExecutor
 import com.melalex.users.dto._
 import com.melalex.users.mapper.UserConversions
+import com.melalex.users.model.UserWithToken
 import com.melalex.users.service.UserService
 import play.api.libs.json._
 import play.api.mvc._
-
-import scala.concurrent.Future
 
 class UserController(
     authenticationAction: AuthenticationAction,
@@ -19,33 +18,30 @@ class UserController(
 ) extends AbstractRealWorldController(controllerComponents) {
 
   def authenticateUser: Action[UserAuthenticationDto] = Action.async(jsonToDto[UserAuthenticationDto]) { request =>
-    val unitOfWork = userService
-      .authenticateUser(request.body.user.email, request.body.user.password)
-
     workExecutor
-      .execute(unitOfWork)
-      .map(UserConversions.toUserDto)
-      .map(SingleUserDto(_))
-      .map(Json.toJson(_))
-      .map(Ok(_))
+      .execute(userService.authenticateUser(request.body.user.email, request.body.user.password))
+      .map(okUser)
   }
 
   def registerUser: Action[UserRegistrationDto] = Action.async(jsonToDto[UserRegistrationDto]) { request =>
-    val unitOfWork = userService.createUser(UserConversions.toSecurityUserDetails(request.body))
-
     workExecutor
-      .executeInTransaction(unitOfWork)
-      .map(UserConversions.toUserDto)
-      .map(SingleUserDto(_))
-      .map(Json.toJson(_))
-      .map(Ok(_))
+      .executeInTransaction(userService.createUser(UserConversions.toNewUser(request.body)))
+      .map(okUser)
   }
 
-  def getCurrentUser: Action[AnyContent] = authenticationAction.async {
-    Future.successful(Ok(""))
+  def getCurrentUser: Action[AnyContent] = authenticationAction.async { request =>
+    workExecutor
+      .execute(userService.getUserById(request.user.principal.id))
+      .map(_.withToken(request.user.token))
+      .map(okUser)
   }
 
-  def updateUser(userUpdateDto: UserUpdateDto): Action[AnyContent] = authenticationAction.async {
-    Future.successful(Ok(""))
+  def updateUser(): Action[UserUpdateDto] = authenticationAction.async(jsonToDto[UserUpdateDto]) { request =>
+    workExecutor
+      .executeInTransaction(userService.updateUser(request.user.principal.id, UserConversions.toUserUpdate(request.body)))
+      .map(_.withToken(request.user.token))
+      .map(okUser)
   }
+
+  private def okUser(source: UserWithToken) = Ok(Json.toJson(SingleUserDto(UserConversions.toUserDto(source))))
 }

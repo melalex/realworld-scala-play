@@ -8,5 +8,5 @@ case class RealWorldErrorDto(
 
 object RealWorldErrorDto {
 
-  implicit val profileWrapperFormat: Writes[RealWorldErrorDto] = Json.writes[RealWorldErrorDto]
+  implicit val Writes: Writes[RealWorldErrorDto] = Json.writes[RealWorldErrorDto]
 }

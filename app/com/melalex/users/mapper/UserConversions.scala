@@ -1,17 +1,23 @@
 package com.melalex.users.mapper
 
-import com.melalex.users.dto.{UserDto, UserRegistrationDto}
-import com.melalex.users.model.{SecurityUserDetails, UserAndToken}
+import com.melalex.users.dto.{UserDto, UserRegistrationDto, UserUpdateDto}
+import com.melalex.users.model.{NewUser, UpdateUser, UserWithToken}
 
 object UserConversions {
 
-  def toSecurityUserDetails(source: UserRegistrationDto): SecurityUserDetails = SecurityUserDetails(
+  def toNewUser(source: UserRegistrationDto): NewUser = NewUser(
     username = source.user.username,
     email = source.user.email,
     password = source.user.password
   )
 
-  def toUserDto(source: UserAndToken): UserDto = UserDto(
+  def toUserUpdate(source: UserUpdateDto): UpdateUser = UpdateUser(
+    email = source.user.email,
+    bio = source.user.bio,
+    image = source.user.image
+  )
+
+  def toUserDto(source: UserWithToken): UserDto = UserDto(
     email = source.user.email,
     token = source.token,
     username = source.user.username,

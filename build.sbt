@@ -36,6 +36,7 @@ libraryDependencies ++= {
   List(
     // Play
     ws,
+    evolutions,
     // DI
     "com.softwaremill.macwire" %% "macros" % macWireVersion,
     // DB

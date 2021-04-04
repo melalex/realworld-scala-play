@@ -8,5 +8,5 @@ case class SingleUserDto(
 
 object SingleUserDto {
 
-  implicit val reads: Writes[SingleUserDto] = Json.writes[SingleUserDto]
+  implicit val Reads: Writes[SingleUserDto] = Json.writes[SingleUserDto]
 }
